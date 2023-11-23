@@ -1,0 +1,1 @@
+This project involves the exploration and analysis of a books dataset obtained from Kaggle. The dataset contains various attributes of books, including titles, authors, categories, prices, ratings, and more. The primary goal is to leverage MongoDB Atlas, a cloud-based database service, to store this dataset and perform data operations using Python and PyMongo.
