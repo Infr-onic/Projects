@@ -1,0 +1,197 @@
+Create Database and collection:
+
+create new database: use DSdb
+
+
+Create new collection in DSdb database: db.createCollection(“student”) and db.createCollection(“student1”)
+ 
+
+Insert one document into collection:
+
+Use method: db.collectionname.(insertone) to insert entries. See example
+
+ 
+
+To insert multiple documents:
+
+Use Method:  db.collectionname.insertmany() to enter multiple entries
+
+ 
+
+Output with by default id’s created by Mongodb
+ 
+
+Read Data in MongoDB:
+
+Use db.collectionname.find() to read entries or db.collectionname.find().pretty() or db.collectionname.find().count()
+
+Outcome example:
+
+ 
+
+To read the particular id: db.collectionname.find({})
+
+Example:
+
+
+
+method to sort the data in ascending order: db.collectionname.find().sort({field name:1})
+
+ 
+
+method to sort the data in descending order: db.collectionname.find().sort({field name:-1})
+
+
+
+ 
+
+UPDATE: $set operator is used to add new field or modify the value of the field.
+
+db.collection_name.updateMany({Selection_Criteria},{$set:{Update_Data}}
+
+Example:
+
+
+
+ 
+
+Modify multiple entries:
+
+Example:
+
+
+Again read the data if changes has been done
+
+
+
+ 
+
+method to add new field in data :
+
+db.colectionname.aggregate({$addfields:{“fieldname”:”field value”}})
+
+
+
+ 
+
+Use operator $inc to increase to value in the field
+
+
+
+check the output
+
+
+ 
+
+ 
+
+OR
+
+Add new Field CGPA to ID name Gautam
+
+
+Output
+
+
+
+
+Rename: Use operator $rename to rename the filed name
+
+{$rename: { <old_name1>: <new_name1>, <old_name2>: <new_name2>, ... } }
+
+Example:
+
+
+ 
+
+Example to rename nested field and add extra field:
+
+
+Add new nested field by using operator $rename
+
+Add new nested field: by using operator $rename
+
+ 
+
+Example of $rename operator to rename a field and move it to another sub-document
+
+
+ 
+
+ 
+
+Less than and greater than syntax:
+
+Example: db.collectionname.find({‘CGPA’: {$gt : 7}})
+
+Db.collectionname.find({$and:[{‘CGPA’:{$gt:5}},{‘CGPA’:{$lt:8}}]})
+
+Delete operation:
+
+1.    To delete multiple documents: db. collection. deleteMany({}) .
+
+2.    To delete a single document: db. collection. deleteOne({}) .
+
+3.     To remove the entry: db. collection.remove({})
+
+ Example: db.student1.deleteOne({branch: ”data science”})
+
+To drop the collection : db.collectionname.drop()
+
+To drop database: db.dropDatabase()
+
+Example:
+
+#############################################################################################################################################################################################################################
+
+Syntax: function map(){emit(this.key, this.value)}
+
+              function reduce(key, value){return value.join()}
+
+              db.collection name.mapreduce(map, reduce,{out:{inline:1}});
+
+
+
+Example:
+
+
+
+Output:
+
+
+
+
+
+
+
+Output By adding Query:
+
+
+
+Group the student by CGPA and add the CGPA, by their age
+
+Syntax and Command:
+
+var mapfunction=function(){emit(this.key,this.values)}
+
+var reducefunction=function(key,values){return Array.sum(values)}
+
+db.collection name.mapReduce(mapfunction,reducefunction,{'out':'collection name_new'})
+
+
+Example: 
+
+Let following is the list of student in collection:
+
+
+
+MAP Reduce operation to add the CGPA group wise
+
+
+
+MAP reduce operation with condition to find average of the marks
+
+Syntax and Command:
+
+db.student1.mapReduce(function(){emit(this.age,this.CGPA);},function(key,values){return Array.avg(values)},{query:{age:{$gt:20}},out:'Result2_mapreduce'})
+
