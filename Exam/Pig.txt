@@ -1,0 +1,25 @@
+open csv with notepad and then remove header and save as txt
+
+javac
+start-all.cmd
+pig -x local
+grunt shell open 
+
+data = LOAD'C:\\Folder\\data\\data.txt' USING PigStorage (',') as (col1:datatype, col2:datatype, col3:datatype);
+dump data;
+
+#sort
+data_order = ORDER data BY colname ASC/DESC;
+dump data_order;
+
+#Limit
+data_limit = LIMIT data_order 10;
+dump data_limit;
+
+#Filter
+data_filter = FILTER data BY (colname >/</= condition);
+dump data_filter;
+
+#Group
+data_group = GROUP data BY colname;
+dump data_group;
