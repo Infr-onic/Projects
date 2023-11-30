@@ -1,0 +1,41 @@
+create database dbname;
+create table tablename(colname1 datatype, colname2 datatype.....);
+INSERT INTO TABLE tablename VALUES(),(),...;
+SELECT * FROM tablename;
+
+#change tablename
+alter table tablename rename to newname;
+
+
+#change columnname
+alter table tablename change columname newcolumname datatype;
+
+#add new column
+alter table tablename add columns(colname datatype);
+
+#drop
+drop table tablename
+drop database databasename
+
+#LIMIT
+select * from tablename limit value;
+
+#sort
+select * from tablename sort by tablename.colname asc/desc;
+
+#orderby
+select * from tablename order by tablename.colname;
+
+#groupby
+select colname, count(*) from tablename group by colname;
+
+# cluster by
+select col1, col2 from tablenmame cluster by col1;
+
+
+# Joins
+select c.firstable col names,...., d.second_col_names (different)
+from table1 c JOIN table2 d
+ON (c.same_col_name = d.same_col_name);
+
+same for left right and full outer join 
