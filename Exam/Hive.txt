@@ -39,3 +39,79 @@ from table1 c JOIN table2 d
 ON (c.same_col_name = d.same_col_name);
 
 same for left right and full outer join 
+
+
+
+
+############################################################################################################################################################################################################################
+
+
+
+
+
+Experiment:To partition the medicines with their company name-
+
+Steps and Syntax
+
+create table medicine(name string, price double, buildYear int, expiryYear int, company string)
+
+ 
+ 
+INSERT INTO TABLE medicine VALUES (‘Paracetamol’,125,2019,2023,’J&J'),(‘Nimusulide’,254,2017,2021,’Biotech’), (‘Penicillium’, 212,2019,2022,’Pfiser’),( ‘Dettol’,220,2022,2024,’Biotech’),(‘Risperdal’,300,2021,2025,’J&J'),( ‘Bcg’,199,2020,2023,’Pfiser’);
+
+
+
+create table med_part(name string, price double, buildYear int, expiryYear int)
+partitioned by(company string);
+ 
+insert overwrite table med_part
+partition(company=’Pfiser’)
+select name, price, buildYear, expiryYear from medicine
+where company=’Pfiser’;
+ 
+
+
+select count(*) from med_part where company=’Pfiser’;
+select count(*) from med_part where name=’Bcg’;
+ 
+
+
+show partitions med_part;
+select * from med_part
+
+
+
+Bucketing: Buckets in hive is used in segregating of hive table-data into multiple files or directories. it is used for efficient querying.
+
+The data i.e. present in that partitions can be divided further into Buckets
+The division is performed based on Hash of particular columns that we selected in the table.
+Buckets use some form of Hashing algorithm at back end to read each record and place it into buckets
+In Hive, we have to enable buckets by using the set.hive.enforce.bucketing=true;
+ 
+
+Syntax: In continuation of previous table “medicine”
+
+Create Table for Bucketing:
+
+create table medi_bucket(name string, price double, buildYear int, expiryYear int, company string)
+
+clustered by (company) into 3 buckets
+
+row format delimited
+
+fields terminated by ',';
+
+
+Next syntax: To insert data into bucket from main table
+
+From medicine
+
+Insert overwrite table medi_bucket
+
+Select name, price,buildyear, expiryyear, company;
+
+Result of bucketing
+
+Syntax: select * from medi_bucket
+
+
